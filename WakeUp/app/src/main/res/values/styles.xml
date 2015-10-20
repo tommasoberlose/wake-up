@@ -1,0 +1,57 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.NoActionBar.AppList" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary_applist</item>
+        <item name="colorPrimaryDark">@color/primary_applist_dark</item>
+        <item name="colorAccent">@color/accent</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyDialog_theme" parent="Theme.AppCompat.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="Dialog_Pop" parent="Theme.AppCompat.Dialog">
+
+        <item name="colorControlActivated">@color/primary_dark</item>
+        <item name="colorSwitchThumbNormal">@color/back_selected_item</item>
+
+    </style>
+
+    <style name="mDialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorControlActivated">@color/primary</item>
+        <item name="colorSwitchThumbNormal">@color/back_selected_item</item>
+        <item name="android:textColorSecondary">@color/primary_light</item>
+        <item name="colorAccent">@color/primary</item>
+
+    </style>
+
+    <style name="mDialog_Picker" parent="Theme.AppCompat.Light.Dialog">
+
+        <item name="colorControlActivated">@color/primary_dark</item>
+        <item name="colorSwitchThumbNormal">@color/back_selected_item</item>
+
+        <item name="android:datePickerStyle">@style/mDialog_DatePicker</item>
+
+    </style>
+
+</resources>

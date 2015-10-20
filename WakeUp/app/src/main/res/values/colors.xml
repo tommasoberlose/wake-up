@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary">#ffffff</color>
+    <color name="primary_dark">#b3b3b3</color>
+    <color name="primary_light">#2196F3</color>
+    <color name="primary_soft">#4184f3</color>
+    <color name="accent">@color/material_deep_teal_500</color>
+    <color name="accent_dark">#F44336</color>
+    <color name="primary_text">#212121</color>
+    <color name="all_text">#444444</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#B6B6B6</color>
+    <color name="third_text">#999999</color>
+    <color name="back_selected_item">#eeeeee</color>
+    <color name="back_select">#efefef</color>
+    <color name="white_dark">#b3b3b3</color>
+
+    <color name="drawer_icon">#757575</color>
+
+    <color name="white_back">#55FFFFFF</color>
+    <color name="black_op">#dd757575</color>
+
+    <color name="icon.r">#F44336</color>
+    <color name="icon.i">#3f5ca9</color>
+    <color name="icon.t">#009688</color>
+    <color name="icon.l">#f5be25</color>
+    <color name="icon.do">#ef9200</color>
+    <color name="green">#19c029</color>
+
+    <color name="slide1">#385d9f</color>
+    <color name="slide2">#3a972b</color>
+    <color name="slide3">#ff6b4e</color>
+
+    <color name="background_dialog_dark">#424242</color>
+    <color name="background_dialog_light">#ffffff</color>
+    <color name="black_opacity">#db000000</color>
+    <color name="back_card">#424242</color>
+    <color name="background_dialog">#bb000000</color>
+
+    <color name="background_m_light">#fffafafa</color>
+
+    <color name="ripple_dark">#42ffffff</color>
+    <color name="ripple_light">#1f000000</color>
+    <color name="primary_applist">#346ac2</color>
+    <color name="primary_applist_dark">#2a559b</color>
+</resources>

@@ -1,0 +1,158 @@
+package com.nego.wakeup.Adapter;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import com.nego.wakeup.Costants;
+import com.nego.wakeup.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+    private List<String[]> mDataset = new ArrayList<>();
+    private Context mContext;
+    private PackageManager pm;
+    private SharedPreferences SP;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        public View mView;
+        public ViewHolder(View v) {
+            super(v);
+            mView = v;
+        }
+
+        public RelativeLayout container;
+        public CheckBox checkBox;
+        public ImageView img;
+        public TextView title;
+        public TextView subtitle;
+        public ViewHolder(View v, RelativeLayout container, CheckBox checkBox, ImageView img, TextView title, TextView subtitle) {
+            super(v);
+            mView = v;
+            this.container = container;
+            this.checkBox = checkBox;
+            this.img = img;
+            this.title = title;
+            this.subtitle = subtitle;
+        }
+
+    }
+
+    public MyAdapter(SharedPreferences SP, Context mContext) {
+        this.mContext = mContext;
+        pm = mContext.getPackageManager();
+        this.SP = SP;
+        generate_list(SP);
+    }
+
+    @Override
+    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                   int viewType) {
+
+        ViewHolder vh;
+        View v;
+
+        v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.app_item, parent, false);
+        vh = new ViewHolder(v,
+                (RelativeLayout) v.findViewById(R.id.container),
+                (CheckBox) v.findViewById(R.id.checkbox),
+                (ImageView) v.findViewById(R.id.img),
+                (TextView) v.findViewById(R.id.title),
+                (TextView) v.findViewById(R.id.subtitle));
+
+        return vh;
+    }
+
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+
+        holder.checkBox.setChecked(mDataset.get(position)[0].equals("1"));
+        holder.title.setText(mDataset.get(position)[1]);
+        holder.subtitle.setText(mDataset.get(position)[2]);
+        try {
+            holder.img.setImageDrawable(pm.getApplicationIcon(mDataset.get(position)[2]));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.checkBox.setChecked(!holder.checkBox.isChecked());
+            }
+        });
+
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                mDataset.get(position)[0] = isChecked ? "1" : "0";
+                saveAll();
+            }
+        });
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return mDataset.size();
+    }
+
+    // GENERATE LIST
+    public void generate_list(SharedPreferences SP) {
+        mDataset.clear();
+        String[] appList = SP.getString(Costants.NOTIFICATION_PACKAGE, "").split(";");
+
+        List<ApplicationInfo> apps = pm.getInstalledApplications(0);
+
+        for (ApplicationInfo appInfo : apps) {
+            String selected = "0";
+            if (appList.length > 1) {
+                for (String s : appList)
+                    if (s.equals(appInfo.packageName))
+                        selected = "1";
+            } else {
+                selected = "1";
+            }
+            mDataset.add(new String[]{selected, pm.getApplicationLabel(appInfo).toString(), appInfo.packageName});
+        }
+
+    }
+
+    public void selectAll() {
+
+        for (String[] s : mDataset) {
+            s[0] = "1";
+        }
+    }
+
+    public void saveAll() {
+        String toSave = "";
+        boolean first = true;
+        for (String[] s : mDataset) {
+            if (s[0].equals("1")) {
+                if (!first)
+                    toSave += ";";
+                first = false;
+                toSave += s[2];
+            }
+        }
+        SP.edit().putString(Costants.NOTIFICATION_PACKAGE, toSave).apply();
+    }
+}
