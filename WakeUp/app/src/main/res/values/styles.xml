@@ -11,12 +11,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="AppTheme.NoActionBar.AppList" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primary_applist</item>
-        <item name="colorPrimaryDark">@color/primary_applist_dark</item>
-        <item name="colorAccent">@color/accent</item>
-    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
@@ -30,7 +24,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="Dialog_Pop" parent="Theme.AppCompat.Dialog">
+    <style name="Dialog_Pop" parent="Theme.AppCompat.Light.Dialog">
 
         <item name="colorControlActivated">@color/primary_dark</item>
         <item name="colorSwitchThumbNormal">@color/back_selected_item</item>

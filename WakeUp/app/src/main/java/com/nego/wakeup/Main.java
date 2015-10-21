@@ -1,8 +1,10 @@
 package com.nego.wakeup;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,10 +12,13 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -33,28 +38,7 @@ public class Main extends AppCompatActivity {
         SP = getSharedPreferences(Costants.PREFERENCES_COSTANT, Context.MODE_PRIVATE);
 
         button = (Button) findViewById(R.id.button_title);
-        button.setActivated(NLService.isNotificationAccessEnabled);
-
-        if (NLService.isNotificationAccessEnabled) {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    boolean now = SP.getBoolean(Costants.WAKEUP_ACTIVE, false);
-                    SP.edit().putBoolean(Costants.WAKEUP_ACTIVE, !now).apply();
-                    updateUI(!now);
-                }
-            });
-            updateUI(SP.getBoolean(Costants.WAKEUP_ACTIVE, false));
-        } else {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent=new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                    startActivityForResult(intent, 1);
-                }
-            });
-            button.setText(R.string.action_activate_nls);
-        }
+        updateUI(SP.getBoolean(Costants.WAKEUP_ACTIVE, false));
 
         // PACKAGE
         findViewById(R.id.action_list_app).setOnClickListener(new View.OnClickListener() {
@@ -118,6 +102,22 @@ public class Main extends AppCompatActivity {
             }
         });
 
+        //PROXIMITY
+        final CheckBox pC = (CheckBox) findViewById(R.id.proximity_check);
+        pC.setChecked(SP.getBoolean(Costants.PREFERENCE_PROXIMITY, true));
+        pC.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SP.edit().putBoolean(Costants.PREFERENCE_PROXIMITY, isChecked).apply();
+            }
+        });
+        findViewById(R.id.action_proximity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pC.setChecked(!pC.isChecked());
+            }
+        });
+
         // VERSIONE
         String version = getString(R.string.app_name);
         try {
@@ -144,38 +144,41 @@ public class Main extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/communities/100614116200820350356/stream/edf4f722-4c14-4b29-98dc-58a5721dd3a5")));
             }
         });
+
+        welcomeAlert();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        IntentFilter intentFilter = new IntentFilter(Costants.NLSERVICE_CHANGED);
-
-        mReceiver = new BroadcastReceiver() {
-
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                updateUI(NLService.isNotificationAccessEnabled);
-            }
-        };
-        registerReceiver(mReceiver, intentFilter);
-    }
-
-    @Override
-    public void onPause() {
-        unregisterReceiver(mReceiver);
-        super.onPause();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1)
-            updateUI(NLService.isNotificationAccessEnabled);
+        updateUI(SP.getBoolean(Costants.WAKEUP_ACTIVE, false));
     }
 
     public void updateUI(boolean on) {
-        button.setSelected(on);
-        button.setText(on ? R.string.action_disable : R.string.action_enable);
+        if (haveNotificationAccess()) {
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    boolean now = SP.getBoolean(Costants.WAKEUP_ACTIVE, false);
+                    SP.edit().putBoolean(Costants.WAKEUP_ACTIVE, !now).apply();
+                    updateUI(!now);
+                }
+            });
+            button.setSelected(on);
+            button.setText(on ? R.string.app_name_enabled : R.string.app_name_disabled);
+            button.setActivated(true);
+        } else {
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                    startActivityForResult(intent, 1);
+                }
+            });
+            button.setText(R.string.action_activate_nls);
+            button.setActivated(false);
+        }
         findViewById(R.id.card_settings).setVisibility(on ? View.VISIBLE : View.GONE);
     }
 
@@ -196,6 +199,28 @@ public class Main extends AppCompatActivity {
             case -2:
                 ((TextView) findViewById(R.id.subtitle_priority)).setText(R.string.text_priority_m2);
                 break;
+        }
+    }
+
+    public boolean haveNotificationAccess() {
+        ContentResolver contentResolver = getContentResolver();
+        String enabledNotificationListeners = Settings.Secure.getString(contentResolver, "enabled_notification_listeners");
+        String packageName = getPackageName();
+
+        if (enabledNotificationListeners == null || !enabledNotificationListeners.contains(packageName))
+            return false;
+        else
+            return true;
+    }
+
+    public void welcomeAlert() {
+        if (SP.getBoolean(Costants.WELCOME_ALERT, true)) {
+            SP.edit().putBoolean(Costants.WELCOME_ALERT, false).apply();
+            new AlertDialog.Builder(this, R.style.Dialog_Pop)
+                    .setTitle(R.string.text_welcome)
+                    .setMessage(R.string.text_welcome_msg)
+                    .setPositiveButton(R.string.text_great, null)
+                    .show();
         }
     }
 

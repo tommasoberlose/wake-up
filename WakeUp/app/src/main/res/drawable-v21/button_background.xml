@@ -14,7 +14,7 @@
         <ripple android:color="@color/ripple_light">
             <item>
                 <shape>
-                    <solid android:color="@color/accent_dark" />
+                    <solid android:color="@color/accent" />
                     <corners android:radius="3dp" />
                 </shape>
             </item>
@@ -24,7 +24,7 @@
         <ripple android:color="@color/ripple_light">
             <item>
                 <shape>
-                    <solid android:color="@color/accent" />
+                    <solid android:color="@color/accent_dark" />
                     <corners android:radius="3dp" />
                 </shape>
             </item>

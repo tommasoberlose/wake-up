@@ -18,29 +18,24 @@ import android.os.PowerManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
+import android.view.View;
 
 public class NLService extends NotificationListenerService implements SensorEventListener {
 
-    private String TAG = this.getClass().getSimpleName();
     private NLServiceReceiver nlservicereciver;
-    public static boolean isNotificationAccessEnabled = false;
     private HandlerThread mHandlerThread;
+    private Handler mHandler;
+    private SensorManager mSensorMgr;
 
     @Override
     public IBinder onBind(Intent mIntent) {
         IBinder mIBinder = super.onBind(mIntent);
-        isNotificationAccessEnabled = true;
-        Intent i = new Intent(Costants.NLSERVICE_CHANGED);
-        sendBroadcast(i);
         return mIBinder;
     }
 
     @Override
     public boolean onUnbind(Intent mIntent) {
         boolean mOnUnbind = super.onUnbind(mIntent);
-        isNotificationAccessEnabled = false;
-        Intent i = new Intent(Costants.NLSERVICE_CHANGED);
-        sendBroadcast(i);
         return mOnUnbind;
     }
 
@@ -74,23 +69,18 @@ public class NLService extends NotificationListenerService implements SensorEven
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {
-        Log.i("PROX", event.values[0] + "");
-       if (event.values[0] > 0) {
-           Log.i("PROX", "ENTRATO");
+    public void onSensorChanged(SensorEvent event) {Log.i("PROX", event.values[0] + "");
+       if (!(event.values[0] < mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY).getMaximumRange())) {
            mHandlerThread.quit();
-           PowerManager.WakeLock screenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(
-                   PowerManager.SCREEN_BRIGHT_WAKE_LOCK
-                           | PowerManager.ACQUIRE_CAUSES_WAKEUP
-                           | PowerManager.ON_AFTER_RELEASE, "TAG");
-           screenLock.acquire();
-           screenLock.release();
+           mSensorMgr.unregisterListener(NLService.this);
+           wakeUp();
+           Log.i("SENSOR", "END_PROX");
        }
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
+        Log.i("ACCURACY", "CHANGED");
     }
 
     class NLServiceReceiver extends BroadcastReceiver{
@@ -100,26 +90,28 @@ public class NLService extends NotificationListenerService implements SensorEven
             if (intent.getAction().equals(Costants.ACTION_NOTIFICATION_LISTENER_SERVICE)) {
                 SharedPreferences SP = getSharedPreferences(Costants.PREFERENCES_COSTANT, Context.MODE_PRIVATE);
                 if (SP.getBoolean(Costants.WAKEUP_ACTIVE, false) && checkSilent(SP) && checkListOk(intent, SP) && checkPriority(intent, SP)) {
-                    SensorManager mSensorMgr = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+                    mSensorMgr = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+                    if (SP.getBoolean(Costants.PREFERENCE_PROXIMITY, true) && (mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null)) {
+                        Log.i("SENSOR", "START");
+                        mHandlerThread = new HandlerThread("sensorThread");
+                        mHandlerThread.start();
+                        final Handler handler = new Handler(mHandlerThread.getLooper());
 
-                    mHandlerThread = new HandlerThread("sensorThread");
-                    mHandlerThread.start();
-                    final Handler handler = new Handler(mHandlerThread.getLooper());
+                        mSensorMgr.registerListener(NLService.this, mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+                                SensorManager.SENSOR_DELAY_FASTEST, handler);
 
-                    mSensorMgr.registerListener(NLService.this, mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                            SensorManager.SENSOR_DELAY_FASTEST, handler);
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Thread.sleep(6000);
+                        mHandler = new Handler();
+                        mHandler.postDelayed(new Runnable() {
+                            public void run() {
                                 mHandlerThread.quit();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                                mSensorMgr.unregisterListener(NLService.this);
+                                Log.i("SENSOR", "END_TIME");
                             }
-                        }
-                    });
+                        }, 6000);
+                    } else {
+                        wakeUp();
+                    }
 
                 }
             }
@@ -146,6 +138,15 @@ public class NLService extends NotificationListenerService implements SensorEven
     public boolean checkSilent(SharedPreferences SP) {
         AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         return !(SP.getBoolean(Costants.PREFERENCE_SILENT, true) && (am.getRingerMode() == AudioManager.RINGER_MODE_SILENT));
+    }
+
+    public void wakeUp() {
+        PowerManager.WakeLock screenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(
+                PowerManager.SCREEN_BRIGHT_WAKE_LOCK
+                        | PowerManager.ACQUIRE_CAUSES_WAKEUP
+                        | PowerManager.ON_AFTER_RELEASE, "TAG");
+        screenLock.acquire();
+        screenLock.release();
     }
 
 }

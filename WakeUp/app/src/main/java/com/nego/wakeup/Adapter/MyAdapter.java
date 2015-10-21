@@ -83,15 +83,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-        holder.checkBox.setChecked(mDataset.get(position)[0].equals("1"));
-        holder.title.setText(mDataset.get(position)[1]);
-        holder.subtitle.setText(mDataset.get(position)[2]);
-        try {
-            holder.img.setImageDrawable(pm.getApplicationIcon(mDataset.get(position)[2]));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,9 +94,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 mDataset.get(position)[0] = isChecked ? "1" : "0";
-                saveAll();
             }
         });
+
+        holder.checkBox.setChecked(mDataset.get(position)[0].equals("1"));
+        holder.title.setText(mDataset.get(position)[1]);
+        holder.subtitle.setText(mDataset.get(position)[2]);
+        try {
+            holder.img.setImageDrawable(pm.getApplicationIcon(mDataset.get(position)[2]));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -142,17 +141,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         }
     }
 
-    public void saveAll() {
-        String toSave = "";
-        boolean first = true;
-        for (String[] s : mDataset) {
-            if (s[0].equals("1")) {
-                if (!first)
-                    toSave += ";";
-                first = false;
-                toSave += s[2];
-            }
-        }
-        SP.edit().putString(Costants.NOTIFICATION_PACKAGE, toSave).apply();
+    public List<String[]> getData() {
+        return mDataset;
     }
 }

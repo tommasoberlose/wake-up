@@ -58,6 +58,11 @@ public class AppList extends AppCompatActivity {
             return true;
         }
 
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -81,5 +86,27 @@ public class AppList extends AppCompatActivity {
                 });
             }
         }).start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        saveAll();
+        super.onBackPressed();
+    }
+
+    public void saveAll() {
+        if (mAdapter != null) {
+            String toSave = "";
+            boolean first = true;
+            for (String[] s : mAdapter.getData()) {
+                if (s[0].equals("1")) {
+                    if (!first)
+                        toSave += ";";
+                    first = false;
+                    toSave += s[2];
+                }
+            }
+            SP.edit().putString(Costants.NOTIFICATION_PACKAGE, toSave).apply();
+        }
     }
 }

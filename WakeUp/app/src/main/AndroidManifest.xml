@@ -34,7 +34,7 @@
             android:name=".AppList"
             android:label="@string/title_activity_app_list"
             android:parentActivityName=".Main"
-            android:theme="@style/AppTheme.NoActionBar.AppList" >
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.nego.wakeup.Main" />
