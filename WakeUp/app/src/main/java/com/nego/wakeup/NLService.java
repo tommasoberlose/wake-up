@@ -15,6 +15,7 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.PowerManager;
+import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
@@ -69,7 +70,8 @@ public class NLService extends NotificationListenerService implements SensorEven
     }
 
     @Override
-    public void onSensorChanged(SensorEvent event) {Log.i("PROX", event.values[0] + "");
+    public void onSensorChanged(SensorEvent event) {
+        Log.i("PROX", event.values[0] + "");
        if (!(event.values[0] < mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY).getMaximumRange())) {
            mHandlerThread.quit();
            mSensorMgr.unregisterListener(NLService.this);
@@ -141,7 +143,7 @@ public class NLService extends NotificationListenerService implements SensorEven
     }
 
     public void wakeUp() {
-        PowerManager.WakeLock screenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(
+        final PowerManager.WakeLock screenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK
                         | PowerManager.ACQUIRE_CAUSES_WAKEUP
                         | PowerManager.ON_AFTER_RELEASE, "TAG");

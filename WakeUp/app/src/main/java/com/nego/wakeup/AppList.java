@@ -24,6 +24,8 @@ public class AppList extends AppCompatActivity {
     private RecyclerView app_list;
     private MyAdapter mAdapter;
 
+    private boolean filter_on = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,13 @@ public class AppList extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.action_filter) {
+            filter_on = !filter_on;
+            saveAll();
+            doList();
+            return true;
+        }
+
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
@@ -75,7 +84,7 @@ public class AppList extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run() {
 
-                mAdapter = new MyAdapter(SP, AppList.this);
+                mAdapter = new MyAdapter(SP, AppList.this, filter_on);
 
                 mHandler.post(new Runnable() {
                     public void run() {

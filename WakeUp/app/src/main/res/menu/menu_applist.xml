@@ -3,5 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context="com.nego.carpooling.ChoosePeople">
     <item android:id="@+id/action_select_all" android:title="@string/action_select_all" android:icon="@drawable/ic_action_done_all"
         android:orderInCategory="100" app:showAsAction="always" />
-
+    <item android:id="@+id/action_filter" android:title="@string/action_filter" android:icon="@drawable/ic_action_content_filter_list"
+        android:orderInCategory="105" app:showAsAction="always" />
 </menu>

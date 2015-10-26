@@ -25,6 +25,7 @@ import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<String[]> mDataset = new ArrayList<>();
+    private List<String[]> mAll = new ArrayList<>();
     private Context mContext;
     private PackageManager pm;
     private SharedPreferences SP;
@@ -54,11 +55,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     }
 
-    public MyAdapter(SharedPreferences SP, Context mContext) {
+    public MyAdapter(SharedPreferences SP, Context mContext, boolean filter) {
         this.mContext = mContext;
         pm = mContext.getPackageManager();
         this.SP = SP;
-        generate_list(SP);
+        generate_list(SP, filter);
     }
 
     @Override
@@ -114,7 +115,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     // GENERATE LIST
-    public void generate_list(SharedPreferences SP) {
+    public void generate_list(SharedPreferences SP, boolean filter) {
         mDataset.clear();
         String[] appList = SP.getString(Costants.NOTIFICATION_PACKAGE, "").split(";");
 
@@ -129,7 +130,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             } else {
                 selected = "1";
             }
-            mDataset.add(new String[]{selected, pm.getApplicationLabel(appInfo).toString(), appInfo.packageName});
+
+            if (!filter || (appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 1) {
+                mDataset.add(new String[]{selected, pm.getApplicationLabel(appInfo).toString(), appInfo.packageName});
+            }
+            mAll.add(new String[]{selected, pm.getApplicationLabel(appInfo).toString(), appInfo.packageName});
         }
 
     }
@@ -139,9 +144,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         for (String[] s : mDataset) {
             s[0] = "1";
         }
+        notifyDataSetChanged();
     }
 
     public List<String[]> getData() {
-        return mDataset;
+        for (String[] x : mAll) {
+            for (String[] y : mDataset) {
+                if (x[2].equals(y[2])) {
+                    x[0] = y[0];
+                    break;
+                }
+            }
+        }
+        return mAll;
     }
 }
