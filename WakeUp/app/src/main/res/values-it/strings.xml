@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wake Up</string>
+    <string name="action_activate_nls">Concedi accesso alle Notifiche</string>
+    <string name="action_disable">Disattiva Wake Up</string>
+    <string name="action_enable">Attiva Wake Up</string>
+    <string name="action_save">Salva</string>
+    <string name="action_filter">Filtra App di Sistema</string>
+    <string name="action_select_all">Seleziona tutti</string>
+    <string name="action_settings">Impostazioni</string>
+    <string name="app_name_disabled">Wake Up disabilitata</string>
+    <string name="app_name_enabled">Wake Up abilitata</string>
+    <string name="subtitle_about">Informazioni, aiuto e feedback</string>
+    <string name="subtitle_community">Aiuto, feedback e suggerimenti</string>
+    <string name="subtitle_list_app">Scegli quali applicazioni attivano lo schermo</string>
+    <string name="subtitle_proximity">Utilizza il sensore di prossimità per verificare se il device è in tasca</string>
+    <string name="subtitle_settings">Modifica preferenze e impostazioni</string>
+    <string name="subtitle_silent">Non accendere lo schermo quando la modalità silenziosa è attiva</string>
+    <string name="subtitle_version">Vota Wake Up sul Google Play Store</string>
+    <string name="text_attention">Attenzione</string>
+    <string name="text_great">Molto Bene</string>
+    <string name="text_never">mai</string>
+    <string name="text_priority_0">Default</string>
+    <string name="text_priority_1">Alta</string>
+    <string name="text_priority_2">Massima</string>
+    <string name="text_priority_m1">Bassa</string>
+    <string name="text_priority_m2">Minima</string>
+    <string name="text_version">v.</string>
+    <string name="text_welcome">Benvenuto</string>
+    <string name="text_welcome_msg">Grazie per aver scaricato Wake Up!\nPer iniziare concedi l\'accesso alle notifiche e attiva l\'applicazione.</string>
+    <string name="title_activity_about">Informazioni App e Feedback</string>
+    <string name="title_activity_app_list">Lista Applicazioni</string>
+    <string name="title_activity_settings">Impostazioni e Preferenze</string>
+    <string name="title_community">Community Wake Up</string>
+    <string name="title_list_app">Lista Applicazioni</string>
+    <string name="title_priority">Priorità Notifiche</string>
+    <string name="title_proximity">Sensore di Prossimità</string>
+    <string name="title_sections_preferences">Preferenze</string>
+    <string name="title_silent">Modalità Silenziosa</string>
+</resources>
