@@ -95,22 +95,27 @@ public class NLService extends NotificationListenerService implements SensorEven
                     mSensorMgr = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
                     if (SP.getBoolean(Costants.PREFERENCE_PROXIMITY, true) && (mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null)) {
                         Log.i("SENSOR", "START");
-                        mHandlerThread = new HandlerThread("sensorThread");
-                        mHandlerThread.start();
-                        final Handler handler = new Handler(mHandlerThread.getLooper());
+                        try {
+                            mHandlerThread = new HandlerThread("sensorThread");
+                            mHandlerThread.start();
+                            final Handler handler = new Handler(mHandlerThread.getLooper());
 
-                        mSensorMgr.registerListener(NLService.this, mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                                SensorManager.SENSOR_DELAY_FASTEST, handler);
+                            mSensorMgr.registerListener(NLService.this, mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+                                    SensorManager.SENSOR_DELAY_FASTEST, handler);
 
 
-                        mHandler = new Handler();
-                        mHandler.postDelayed(new Runnable() {
-                            public void run() {
-                                mHandlerThread.quit();
-                                mSensorMgr.unregisterListener(NLService.this);
-                                Log.i("SENSOR", "END_TIME");
-                            }
-                        }, 6000);
+                            mHandler = new Handler();
+                            mHandler.postDelayed(new Runnable() {
+                                public void run() {
+                                    mHandlerThread.quit();
+                                    mSensorMgr.unregisterListener(NLService.this);
+                                    Log.i("SENSOR", "END_TIME");
+                                }
+                            }, 6000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            wakeUp();
+                        }
                     } else {
                         wakeUp();
                     }
@@ -143,7 +148,7 @@ public class NLService extends NotificationListenerService implements SensorEven
     }
 
     public void wakeUp() {
-        final PowerManager.WakeLock screenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(
+        PowerManager.WakeLock screenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(
                 PowerManager.SCREEN_BRIGHT_WAKE_LOCK
                         | PowerManager.ACQUIRE_CAUSES_WAKEUP
                         | PowerManager.ON_AFTER_RELEASE, "TAG");
