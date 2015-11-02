@@ -29,6 +29,7 @@ public class Main extends AppCompatActivity {
     private Button button;
     private SharedPreferences SP;
     private int selected = 1;
+    private int selected_t = 5000;
     private BroadcastReceiver mReceiver;
 
     @Override
@@ -118,6 +119,77 @@ public class Main extends AppCompatActivity {
             }
         });
 
+        // TIMEOUT
+        updateTimeout(SP.getInt(Costants.PREFERENCES_TIMEOUT, 5000));
+        findViewById(R.id.action_timeout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (SP.getInt(Costants.PREFERENCES_TIMEOUT, 5000)) {
+                    case 15000:
+                        selected = 1;
+                        break;
+                    case 30000:
+                        selected = 2;
+                        break;
+                    case 60000:
+                        selected = 3;
+                        break;
+                    case 120000:
+                        selected = 4;
+                        break;
+                    default:
+                        selected = 0;
+                }
+                String[] items = new String[]{
+                        getString(R.string.text_timeout_0),
+                        getString(R.string.text_timeout_1),
+                        getString(R.string.text_timeout_2),
+                        getString(R.string.text_timeout_3),
+                        getString(R.string.text_timeout_4)};
+                new AlertDialog.Builder(Main.this, R.style.mDialog)
+                        .setTitle(getString(R.string.title_timeout_preferences))
+                        .setSingleChoiceItems(items, selected, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                selected = which;
+                            }
+                        })
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int timeout;
+                                switch (selected) {
+                                    case 1:
+                                        timeout = 15000;
+                                        break;
+                                    case 2:
+                                        timeout = 30000;
+                                        break;
+                                    case 3:
+                                        timeout = 60000;
+                                        break;
+                                    case 4:
+                                        timeout = 120000;
+                                        break;
+                                    default:
+                                        timeout = 5000;
+                                        break;
+                                }
+                                SP.edit().putInt(Costants.PREFERENCES_TIMEOUT, timeout).apply();
+                                updateTimeout(timeout);
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+
         // VERSIONE
         String version = getString(R.string.app_name);
         try {
@@ -166,7 +238,7 @@ public class Main extends AppCompatActivity {
                 }
             });
             button.setSelected(on);
-            button.setText(on ? R.string.app_name_enabled : R.string.app_name_disabled);
+            button.setText(on ? R.string.action_disable : R.string.action_enable);
             button.setActivated(true);
         } else {
             button.setOnClickListener(new View.OnClickListener() {
@@ -198,6 +270,26 @@ public class Main extends AppCompatActivity {
                 break;
             case -2:
                 ((TextView) findViewById(R.id.subtitle_priority)).setText(R.string.text_priority_m2);
+                break;
+        }
+    }
+
+    public void updateTimeout(int t) {
+        switch (t) {
+            case 5000:
+                ((TextView) findViewById(R.id.subtitle_timeout)).setText(R.string.text_timeout_0);
+                break;
+            case 15000:
+                ((TextView) findViewById(R.id.subtitle_timeout)).setText(R.string.text_timeout_1);
+                break;
+            case 30000:
+                ((TextView) findViewById(R.id.subtitle_timeout)).setText(R.string.text_timeout_2);
+                break;
+            case 60000:
+                ((TextView) findViewById(R.id.subtitle_timeout)).setText(R.string.text_timeout_3);
+                break;
+            case 120000:
+                ((TextView) findViewById(R.id.subtitle_timeout)).setText(R.string.text_timeout_4);
                 break;
         }
     }

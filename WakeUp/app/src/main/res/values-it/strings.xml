@@ -37,4 +37,10 @@
     <string name="title_proximity">Sensore di Prossimità</string>
     <string name="title_sections_preferences">Preferenze</string>
     <string name="title_silent">Modalità Silenziosa</string>
+    <string name="title_timeout_preferences">Timeout Schermo</string>
+    <string name="text_timeout_0">Default</string>
+    <string name="text_timeout_1">15 sec</string>
+    <string name="text_timeout_2">30 sec</string>
+    <string name="text_timeout_3">1 min</string>
+    <string name="text_timeout_4">2 min</string>
 </resources>

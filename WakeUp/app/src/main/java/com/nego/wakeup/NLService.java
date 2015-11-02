@@ -9,7 +9,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.hardware.display.DisplayManager;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -19,6 +21,7 @@ import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 
 public class NLService extends NotificationListenerService implements SensorEventListener {
@@ -27,6 +30,7 @@ public class NLService extends NotificationListenerService implements SensorEven
     private HandlerThread mHandlerThread;
     private Handler mHandler;
     private SensorManager mSensorMgr;
+    private SharedPreferences SP;
 
     @Override
     public IBinder onBind(Intent mIntent) {
@@ -75,7 +79,7 @@ public class NLService extends NotificationListenerService implements SensorEven
        if (!(event.values[0] < mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY).getMaximumRange())) {
            mHandlerThread.quit();
            mSensorMgr.unregisterListener(NLService.this);
-           wakeUp();
+           wakeUp(SP);
            Log.i("SENSOR", "END_PROX");
        }
     }
@@ -90,8 +94,8 @@ public class NLService extends NotificationListenerService implements SensorEven
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Costants.ACTION_NOTIFICATION_LISTENER_SERVICE)) {
-                SharedPreferences SP = getSharedPreferences(Costants.PREFERENCES_COSTANT, Context.MODE_PRIVATE);
-                if (SP.getBoolean(Costants.WAKEUP_ACTIVE, false) && checkSilent(SP) && checkListOk(intent, SP) && checkPriority(intent, SP)) {
+                SP = getSharedPreferences(Costants.PREFERENCES_COSTANT, Context.MODE_PRIVATE);
+                if (SP.getBoolean(Costants.WAKEUP_ACTIVE, false) && !isScreenOn() && checkSilent(SP) && checkListOk(intent, SP) && checkPriority(intent, SP)) {
                     mSensorMgr = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
                     if (SP.getBoolean(Costants.PREFERENCE_PROXIMITY, true) && (mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null)) {
                         Log.i("SENSOR", "START");
@@ -114,10 +118,10 @@ public class NLService extends NotificationListenerService implements SensorEven
                             }, 6000);
                         } catch (Exception e) {
                             e.printStackTrace();
-                            wakeUp();
+                            wakeUp(SP);
                         }
                     } else {
-                        wakeUp();
+                        wakeUp(SP);
                     }
 
                 }
@@ -139,7 +143,7 @@ public class NLService extends NotificationListenerService implements SensorEven
     }
 
     public boolean checkPriority(Intent intent, SharedPreferences SP) {
-        return (intent.getIntExtra(Costants.NOTIFICATION_PRIORITY, 1) >= SP.getInt(Costants.NOTIFICATION_PRIORITY, 1));
+        return (intent.getIntExtra(Costants.NOTIFICATION_PRIORITY, -1) >= SP.getInt(Costants.NOTIFICATION_PRIORITY, 1));
     }
 
     public boolean checkSilent(SharedPreferences SP) {
@@ -147,13 +151,30 @@ public class NLService extends NotificationListenerService implements SensorEven
         return !(SP.getBoolean(Costants.PREFERENCE_SILENT, true) && (am.getRingerMode() == AudioManager.RINGER_MODE_SILENT));
     }
 
-    public void wakeUp() {
-        PowerManager.WakeLock screenLock = ((PowerManager)getSystemService(POWER_SERVICE)).newWakeLock(
-                PowerManager.SCREEN_BRIGHT_WAKE_LOCK
-                        | PowerManager.ACQUIRE_CAUSES_WAKEUP
-                        | PowerManager.ON_AFTER_RELEASE, "TAG");
-        screenLock.acquire();
-        screenLock.release();
+    public void wakeUp(SharedPreferences SP) {
+        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+            PowerManager.WakeLock screenLock = pm.newWakeLock(
+                    PowerManager.SCREEN_BRIGHT_WAKE_LOCK
+                            | PowerManager.ACQUIRE_CAUSES_WAKEUP
+                            | PowerManager.ON_AFTER_RELEASE, "TAG");
+            screenLock.acquire(SP.getInt(Costants.PREFERENCES_TIMEOUT, 5000));
+    }
+
+    public boolean isScreenOn() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            DisplayManager dm = (DisplayManager) getSystemService(Context.DISPLAY_SERVICE);
+            boolean screenOn = false;
+            for (Display display : dm.getDisplays()) {
+                if (display.getState() != Display.STATE_OFF) {
+                    screenOn = true;
+                }
+            }
+            return screenOn;
+        } else {
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            //noinspection deprecation
+            return pm.isScreenOn();
+        }
     }
 
 }

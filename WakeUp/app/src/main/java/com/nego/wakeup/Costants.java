@@ -10,6 +10,7 @@ public class Costants {
     public static final String NOTIFICATION_PACKAGE = "NOTIFICATION_PACKAGE";
     public static final String NOTIFICATION_PRIORITY = "NOTIFICATION_PRIORITY";
     public static final String PREFERENCE_PROXIMITY = "PREFERENCE_PROXIMITY";
+    public static final String PREFERENCES_TIMEOUT = "PREFERENCES_TIMEOUT";
     public static final String ACTION_NOTIFICATION_LISTENER_SERVICE = "android.intent.action.NOTIFICATION_LISTENER_SERVICE";
 
 }
