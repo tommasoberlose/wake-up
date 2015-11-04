@@ -37,7 +37,7 @@
     <string name="text_welcome_msg">Thanks for downloading!\nTo start grant access to notifications to the application and activate it.</string>
     <string name="action_filter">Filter System Apps</string>
     <string name="title_timeout_preferences">Screen Off Timeout</string>
-    <string name="text_timeout_0">Default</string>
+    <string name="text_timeout_0">Default (5 sec)</string>
     <string name="text_timeout_1">15 sec</string>
     <string name="text_timeout_2">30 sec</string>
     <string name="text_timeout_3">1 min</string>
