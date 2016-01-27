@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,10 +27,9 @@ import android.widget.TextView;
 
 public class Main extends AppCompatActivity {
 
-    private Button button;
+    private TextView button;
     private SharedPreferences SP;
     private int selected = 1;
-    private int selected_t = 5000;
     private BroadcastReceiver mReceiver;
 
     @Override
@@ -38,7 +38,7 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SP = getSharedPreferences(Costants.PREFERENCES_COSTANT, Context.MODE_PRIVATE);
 
-        button = (Button) findViewById(R.id.button_title);
+        button = (TextView) findViewById(R.id.button_title);
         updateUI(SP.getBoolean(Costants.WAKEUP_ACTIVE, false));
 
         // PACKAGE
@@ -237,9 +237,8 @@ public class Main extends AppCompatActivity {
                     updateUI(!now);
                 }
             });
-            button.setSelected(on);
             button.setText(on ? R.string.action_disable : R.string.action_enable);
-            button.setActivated(true);
+            button.setBackgroundColor(on ? ContextCompat.getColor(this, R.color.accent_dark) : ContextCompat.getColor(this, R.color.accent));
         } else {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override

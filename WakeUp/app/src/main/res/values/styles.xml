@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -14,7 +14,7 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="MyDialog_theme" parent="Theme.AppCompat.NoActionBar">
+    <style name="MyDialog_theme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -31,10 +31,10 @@
 
     </style>
 
-    <style name="mDialog" parent="Theme.AppCompat.Dialog">
+    <style name="mDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorControlActivated">@color/primary</item>
         <item name="colorSwitchThumbNormal">@color/back_selected_item</item>
-        <item name="android:textColorSecondary">@color/primary_light</item>
+        <item name="android:textColorSecondary">@color/divider</item>
         <item name="colorAccent">@color/primary</item>
 
     </style>

@@ -5,20 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="com.wakeup.Main">
+    android:layout_height="match_parent"
+    android:layout_marginTop="?android:attr/actionBarSize" tools:context="com.wakeup.Main">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:background="@drawable/button_background"
-            android:id="@+id/button_title"
-            android:layout_margin="16dp"
-            android:textColor="@android:color/white"
-            android:text="@string/action_enable"/>
+        android:orientation="vertical"
+        android:paddingTop="16dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,15 +22,16 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp">
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/secondary_text"
-                    android:text="@string/title_activity_settings"
+                    android:gravity="center_horizontal"
+                    android:fontFamily="sans-serif-medium"
                     android:textAllCaps="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+                    android:text="@string/title_activity_settings"/>
             </RelativeLayout>
 
             <android.support.v7.widget.CardView
@@ -45,7 +39,7 @@
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/background_m_light"
                 app:cardCornerRadius="3dp"
-                app:cardElevation="2dp"
+                app:cardElevation="0dp"
                 app:cardPreventCornerOverlap="true"
                 android:animateLayoutChanges="true"
                 android:background="@color/background_m_light"
@@ -61,7 +55,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:background="@drawable/list_item_background_card"
+                        android:background="?attr/selectableItemBackground"
                         android:id="@+id/action_list_app"
                         android:clickable="true">
 
@@ -69,7 +63,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/primary_text"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
                             android:text="@string/title_list_app"
                             android:id="@+id/list_app_title" />
                         <TextView
@@ -90,7 +84,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:background="@drawable/list_item_background_card"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:id="@+id/action_priority">
 
@@ -98,7 +92,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/primary_text"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
                             android:text="@string/title_priority"
                             android:id="@+id/priority_title" />
                         <TextView
@@ -118,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:background="@drawable/list_item_background_card"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:id="@+id/action_silent">
 
@@ -126,7 +120,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/primary_text"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
                             android:text="@string/title_silent"
                             android:id="@+id/silent_title"
                             android:layout_toStartOf="@+id/silent_check" />
@@ -156,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:background="@drawable/list_item_background_card"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:id="@+id/action_proximity">
 
@@ -164,7 +158,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/primary_text"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
                             android:text="@string/title_proximity"
                             android:id="@+id/proximity_title"
                             android:layout_toStartOf="@+id/proximity_check" />
@@ -194,7 +188,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="16dp"
-                        android:background="@drawable/list_item_background_card"
+                        android:background="?attr/selectableItemBackground"
                         android:clickable="true"
                         android:id="@+id/action_timeout">
 
@@ -202,7 +196,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/primary_text"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
                             android:text="@string/title_timeout_preferences"
                             android:id="@+id/timeout_title" />
                         <TextView
@@ -219,15 +213,16 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondary_text"
                 android:text="@string/title_activity_about"
+                android:fontFamily="sans-serif-medium"
                 android:textAllCaps="true"
-                android:textAppearance="?android:attr/textAppearanceSmall"/>
+                android:gravity="center_horizontal"/>
         </RelativeLayout>
 
         <android.support.v7.widget.CardView
@@ -235,7 +230,7 @@
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/background_m_light"
             app:cardCornerRadius="3dp"
-            app:cardElevation="2dp"
+            app:cardElevation="0dp"
             app:cardPreventCornerOverlap="true"
             android:animateLayoutChanges="true"
             android:background="@color/background_m_light"
@@ -251,14 +246,14 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp"
                     android:id="@+id/action_rate"
-                    android:background="@drawable/list_item_background_card"
+                    android:background="?attr/selectableItemBackground"
                     android:clickable="true">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/primary_text"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textAppearance="?android:attr/textAppearanceListItem"
                         android:id="@+id/version_title" />
                     <TextView
                         android:layout_width="match_parent"
@@ -278,7 +273,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
-                    android:background="@drawable/list_item_background_card"
+                    android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:id="@+id/action_community">
 
@@ -286,7 +281,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/primary_text"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textAppearance="?android:attr/textAppearanceListItem"
                         android:text="@string/title_community"
                         android:id="@+id/community_title" />
                     <TextView
