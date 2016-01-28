@@ -138,7 +138,8 @@
                             android:id="@+id/silent_check"
                             android:layout_centerVertical="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginLeft="16dp" />
+                            android:layout_marginStart="16dp"
+                            android:theme="@style/mDialog"/>
                     </RelativeLayout>
 
                     <LinearLayout
@@ -176,7 +177,8 @@
                             android:id="@+id/proximity_check"
                             android:layout_centerVertical="true"
                             android:layout_alignParentEnd="true"
-                            android:layout_marginLeft="16dp" />
+                            android:layout_marginStart="16dp"
+                            android:theme="@style/mDialog" />
                     </RelativeLayout>
 
                     <LinearLayout

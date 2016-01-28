@@ -13,4 +13,7 @@ public class Costants {
     public static final String PREFERENCES_TIMEOUT = "PREFERENCES_TIMEOUT";
     public static final String ACTION_NOTIFICATION_LISTENER_SERVICE = "android.intent.action.NOTIFICATION_LISTENER_SERVICE";
 
+    public static final String SEPARATOR_ITEM = "ITEM@@@";
+    public static final String SEPARATOR_CHECK = "CHECK@@@";
+
 }

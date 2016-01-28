@@ -28,7 +28,7 @@
     <string name="text_version">v.</string>
     <string name="text_welcome">Benvenuto</string>
     <string name="text_welcome_msg">Grazie per aver scaricato Wake Up!\nPer iniziare concedi l\'accesso alle notifiche e attiva l\'applicazione.</string>
-    <string name="title_activity_about">Informazioni App e Feedback</string>
+    <string name="title_activity_about">Applicazione e Feedback</string>
     <string name="title_activity_app_list">Lista Applicazioni</string>
     <string name="title_activity_settings">Impostazioni e Preferenze</string>
     <string name="title_community">Community Wake Up</string>

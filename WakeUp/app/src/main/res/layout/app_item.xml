@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:id="@+id/checkbox"
+            android:theme="@style/mDialog"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true" />
 

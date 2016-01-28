@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 
+import java.util.ArrayList;
+
 public class NLService extends NotificationListenerService implements SensorEventListener {
 
     private NLServiceReceiver nlservicereciver;
@@ -130,16 +132,14 @@ public class NLService extends NotificationListenerService implements SensorEven
     }
 
     public boolean checkListOk(Intent intent, SharedPreferences SP) {
-        String[] strings = SP.getString(Costants.NOTIFICATION_PACKAGE, "").split(";");
-        if (strings.length > 1) {
-            for (String s : strings) {
-                if (s.equals(intent.getStringExtra(Costants.NOTIFICATION_PACKAGE)))
-                    return true;
+        ArrayList<AppList.AppItemList> appItemLists = AppList.getAppList(this, SP);
+        if (appItemLists.size() > 0) {
+            for (AppList.AppItemList app : appItemLists) {
+                if (app.pack.equals(intent.getStringExtra(Costants.NOTIFICATION_PACKAGE)))
+                    return app.check;
             }
-        } else {
-            return true;
         }
-        return false;
+        return true;
     }
 
     public boolean checkPriority(Intent intent, SharedPreferences SP) {

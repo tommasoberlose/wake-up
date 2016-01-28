@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.nego.wakeup.AppList;
 import com.nego.wakeup.Costants;
 import com.nego.wakeup.R;
 
@@ -117,16 +119,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     // GENERATE LIST
     public void generate_list(SharedPreferences SP, boolean filter) {
         mDataset.clear();
-        String[] appList = SP.getString(Costants.NOTIFICATION_PACKAGE, "").split(";");
+        ArrayList<AppList.AppItemList> appItemLists = AppList.getAppList(mContext, SP);
 
         List<ApplicationInfo> apps = pm.getInstalledApplications(0);
 
         for (ApplicationInfo appInfo : apps) {
             String selected = "0";
-            if (appList.length > 1) {
-                for (String s : appList)
-                    if (s.equals(appInfo.packageName))
-                        selected = "1";
+            if (appItemLists.size() > 0) {
+                for (AppList.AppItemList app : appItemLists)
+                    if (app.pack.equals(appInfo.packageName))
+                        selected = app.getCheck();
             } else {
                 selected = "1";
             }

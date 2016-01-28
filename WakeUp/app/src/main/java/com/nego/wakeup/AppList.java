@@ -3,6 +3,7 @@ package com.nego.wakeup;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -12,11 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.nego.wakeup.Adapter.MyAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppList extends AppCompatActivity {
 
@@ -105,17 +110,60 @@ public class AppList extends AppCompatActivity {
 
     public void saveAll() {
         if (mAdapter != null) {
-            String toSave = "";
-            boolean first = true;
+            ArrayList<AppItemList> appItemLists = new ArrayList<>();
             for (String[] s : mAdapter.getData()) {
-                if (s[0].equals("1")) {
-                    if (!first)
-                        toSave += ";";
-                    first = false;
-                    toSave += s[2];
+                appItemLists.add(new AppItemList(s[2], s[0].equals("1")));
+            }
+            saveAll(appItemLists, SP);
+        }
+    }
+
+    public static void saveAll(ArrayList<AppItemList> appList, SharedPreferences SP) {
+        String toSave = "";
+        String itemSeparator = "";
+        for (AppItemList s : appList) {
+            toSave = toSave + itemSeparator + s.pack + Costants.SEPARATOR_CHECK + s.getCheck();
+            itemSeparator = Costants.SEPARATOR_ITEM;
+        }
+        SP.edit().putString(Costants.NOTIFICATION_PACKAGE, toSave).apply();
+    }
+
+    public static ArrayList<AppItemList> getAppList(Context context, SharedPreferences SP) {
+        String app = SP.getString(Costants.NOTIFICATION_PACKAGE, "");
+        ArrayList<AppItemList> appList = new ArrayList<>();
+        if (app.equals("")) {
+            List<ApplicationInfo> apps = context.getPackageManager().getInstalledApplications(0);
+            for (ApplicationInfo appInfo : apps) {
+                   appList.add(new AppItemList(appInfo.packageName, true));
+            }
+        } else {
+            String[] old_appList = app.split(";");
+            if (old_appList.length > 1) {
+                for (String pack : old_appList) {
+                    appList.add(new AppItemList(pack, true));
+                }
+            } else {
+                String[] items = app.split(Costants.SEPARATOR_ITEM);
+                for (String item : items) {
+                    String[] item_divided = item.split(Costants.SEPARATOR_CHECK);
+                    appList.add(new AppItemList(item_divided[0], item_divided[1].equals("1")));
                 }
             }
-            SP.edit().putString(Costants.NOTIFICATION_PACKAGE, toSave).apply();
+        }
+        return appList;
+    }
+
+    public static class AppItemList {
+        public String pack;
+        public boolean check;
+
+        public AppItemList(String pack, boolean check) {
+            this.pack = pack;
+            this.check = check;
+        }
+
+        public String getCheck() {
+            return (check ? "1" : "0");
         }
     }
 }
