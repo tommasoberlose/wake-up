@@ -5,7 +5,7 @@ public class Costants {
     public static final String PREFERENCES_COSTANT = "preferences_costant";
 
     public static final String WAKEUP_ACTIVE = "WAKEUP_ACTIVE";
-    public static final String WELCOME_ALERT = "WELCOME_ALERT";
+    public static final String ACTION_TOGGLE_APP = "android.wakeup.intent.action.ACTION_TOGGLE_APP";
     public static final String PREFERENCE_SILENT = "PREFERENCE_SILENT";
     public static final String NOTIFICATION_PACKAGE = "NOTIFICATION_PACKAGE";
     public static final String NOTIFICATION_PRIORITY = "NOTIFICATION_PRIORITY";

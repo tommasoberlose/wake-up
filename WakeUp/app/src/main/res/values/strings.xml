@@ -34,7 +34,7 @@
     <string name="title_proximity">Proximity Sensor</string>
     <string name="subtitle_proximity">Uses the proximity sensor to determine whether the device is in pocket</string>
     <string name="text_welcome">Welcome</string>
-    <string name="text_welcome_msg">Thanks for downloading!\nTo start grant access to notifications to the application and activate it.</string>
+    <string name="text_welcome_msg">Grant access to notifications to the application</string>
     <string name="action_filter">Filter System Apps</string>
     <string name="title_timeout_preferences">Screen Off Timeout</string>
     <string name="text_timeout_0">Default (5 sec)</string>
@@ -42,4 +42,9 @@
     <string name="text_timeout_2">30 sec</string>
     <string name="text_timeout_3">1 min</string>
     <string name="text_timeout_4">2 min</string>
+    <string name="title_how_to">How to use</string>
+    <string name="text_enable_app">Enable your application to begin using it</string>
+    <string name="text_make_preferences">Customize as you wish</string>
+    <string name="subtitle_make_preferences">Change preferences and give us suggestions</string>
+    <string name="name_shortcut">Toggle Wake Up</string>
 </resources>

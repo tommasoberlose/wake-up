@@ -16,6 +16,7 @@ import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Main extends AppCompatActivity {
@@ -30,7 +32,6 @@ public class Main extends AppCompatActivity {
     private TextView button;
     private SharedPreferences SP;
     private int selected = 1;
-    private BroadcastReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,8 +218,6 @@ public class Main extends AppCompatActivity {
             }
         });
 
-        welcomeAlert();
-
     }
 
     @Override
@@ -238,7 +237,9 @@ public class Main extends AppCompatActivity {
                 }
             });
             button.setText(on ? R.string.action_disable : R.string.action_enable);
-            button.setBackgroundColor(on ? ContextCompat.getColor(this, R.color.accent_dark) : ContextCompat.getColor(this, R.color.accent));
+            button.setBackgroundColor(on ? ContextCompat.getColor(this, R.color.primary) : ContextCompat.getColor(this, R.color.accent));
+            ((TextView) findViewById(R.id.title_give_nls)).setTextColor(ContextCompat.getColor(this, R.color.secondary_text));
+            ((TextView) findViewById(R.id.subtitle_give_nls)).setTextColor(ContextCompat.getColor(this, R.color.third_text));
         } else {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -248,9 +249,12 @@ public class Main extends AppCompatActivity {
                 }
             });
             button.setText(R.string.action_activate_nls);
-            button.setActivated(false);
+            button.setBackgroundColor(ContextCompat.getColor(this, R.color.accent));
+            ((TextView) findViewById(R.id.title_give_nls)).setTextColor(ContextCompat.getColor(this, R.color.primary_text));
+            ((TextView) findViewById(R.id.subtitle_give_nls)).setTextColor(ContextCompat.getColor(this, R.color.secondary_text));
         }
         findViewById(R.id.card_settings).setVisibility(on ? View.VISIBLE : View.GONE);
+        findViewById(R.id.card_how_to).setVisibility(!on ? View.VISIBLE : View.GONE);
     }
 
     public void updatePriority(int p) {
@@ -302,17 +306,6 @@ public class Main extends AppCompatActivity {
             return false;
         else
             return true;
-    }
-
-    public void welcomeAlert() {
-        if (SP.getBoolean(Costants.WELCOME_ALERT, true)) {
-            SP.edit().putBoolean(Costants.WELCOME_ALERT, false).apply();
-            new AlertDialog.Builder(this, R.style.Dialog_Pop)
-                    .setTitle(R.string.text_welcome)
-                    .setMessage(R.string.text_welcome_msg)
-                    .setPositiveButton(R.string.text_great, null)
-                    .show();
-        }
     }
 
 }

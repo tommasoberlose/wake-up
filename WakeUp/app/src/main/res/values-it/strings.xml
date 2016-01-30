@@ -27,7 +27,7 @@
     <string name="text_priority_m2">Minima</string>
     <string name="text_version">v.</string>
     <string name="text_welcome">Benvenuto</string>
-    <string name="text_welcome_msg">Grazie per aver scaricato Wake Up!\nPer iniziare concedi l\'accesso alle notifiche e attiva l\'applicazione.</string>
+    <string name="text_welcome_msg">Concedi l\'accesso alle notifiche</string>
     <string name="title_activity_about">Applicazione e Feedback</string>
     <string name="title_activity_app_list">Lista Applicazioni</string>
     <string name="title_activity_settings">Impostazioni e Preferenze</string>
@@ -43,4 +43,9 @@
     <string name="text_timeout_2">30 sec</string>
     <string name="text_timeout_3">1 min</string>
     <string name="text_timeout_4">2 min</string>
+    <string name="title_how_to">Come funziona</string>
+    <string name="text_enable_app">Abilitare l\'applicazione per iniziare a usarla</string>
+    <string name="text_make_preferences">Personalizzala come vuoi</string>
+    <string name="subtitle_make_preferences">Cambia le preferenze e dacci qualche suggerimento</string>
+    <string name="name_shortcut" translatable="false">Toggle Wake Up</string>
 </resources>

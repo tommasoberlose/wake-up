@@ -157,7 +157,7 @@ public class NLService extends NotificationListenerService implements SensorEven
                     PowerManager.SCREEN_BRIGHT_WAKE_LOCK
                             | PowerManager.ACQUIRE_CAUSES_WAKEUP
                             | PowerManager.ON_AFTER_RELEASE, "TAG");
-            screenLock.acquire(SP.getInt(Costants.PREFERENCES_TIMEOUT, 5000));
+        screenLock.acquire(SP.getInt(Costants.PREFERENCES_TIMEOUT, 5000));
     }
 
     public boolean isScreenOn() {
