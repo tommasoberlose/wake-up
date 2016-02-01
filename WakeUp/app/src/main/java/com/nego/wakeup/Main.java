@@ -238,20 +238,18 @@ public class Main extends AppCompatActivity {
             });
             button.setText(on ? R.string.action_disable : R.string.action_enable);
             button.setBackgroundColor(on ? ContextCompat.getColor(this, R.color.primary) : ContextCompat.getColor(this, R.color.accent));
-            ((TextView) findViewById(R.id.title_give_nls)).setTextColor(ContextCompat.getColor(this, R.color.secondary_text));
-            ((TextView) findViewById(R.id.subtitle_give_nls)).setTextColor(ContextCompat.getColor(this, R.color.third_text));
+            findViewById(R.id.nls_how_to).setVisibility(View.GONE);
         } else {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                    Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                     startActivityForResult(intent, 1);
                 }
             });
             button.setText(R.string.action_activate_nls);
             button.setBackgroundColor(ContextCompat.getColor(this, R.color.accent));
-            ((TextView) findViewById(R.id.title_give_nls)).setTextColor(ContextCompat.getColor(this, R.color.primary_text));
-            ((TextView) findViewById(R.id.subtitle_give_nls)).setTextColor(ContextCompat.getColor(this, R.color.secondary_text));
+            findViewById(R.id.nls_how_to).setVisibility(View.VISIBLE);
         }
         findViewById(R.id.card_settings).setVisibility(on ? View.VISIBLE : View.GONE);
         findViewById(R.id.card_how_to).setVisibility(!on ? View.VISIBLE : View.GONE);
