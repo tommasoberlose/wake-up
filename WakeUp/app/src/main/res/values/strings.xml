@@ -47,4 +47,5 @@
     <string name="text_make_preferences">Customize as you wish</string>
     <string name="subtitle_make_preferences">Change preferences and give us suggestions</string>
     <string name="name_shortcut">Toggle Wake Up</string>
+    <string name="subtitle_priority">The best use is to use the highest level, but some applications like Gmail use the default priority level.</string>
 </resources>

@@ -19,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
@@ -62,8 +63,13 @@ public class Main extends AppCompatActivity {
                         getString(R.string.text_priority_0),
                         getString(R.string.text_priority_1),
                         getString(R.string.text_priority_2)};
+
+                final View custom_title = LayoutInflater.from(Main.this).inflate(R.layout.custom_popup_title, null);
+                ((TextView) custom_title.findViewById(R.id.title)).setText(getString(R.string.title_priority));
+                ((TextView) custom_title.findViewById(R.id.subtitle)).setText(getString(R.string.subtitle_priority));
+
                 new AlertDialog.Builder(Main.this, R.style.mDialog)
-                        .setTitle(getString(R.string.title_priority))
+                        .setCustomTitle(custom_title)
                         .setSingleChoiceItems(items, selected, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

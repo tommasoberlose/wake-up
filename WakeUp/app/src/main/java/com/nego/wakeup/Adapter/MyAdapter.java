@@ -22,6 +22,8 @@ import com.nego.wakeup.Costants;
 import com.nego.wakeup.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -125,11 +127,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
         for (ApplicationInfo appInfo : apps) {
             String selected = "0";
+            boolean found = false;
             if (appItemLists.size() > 0) {
                 for (AppList.AppItemList app : appItemLists)
-                    if (app.pack.equals(appInfo.packageName))
+                    if (app.pack.equals(appInfo.packageName)) {
                         selected = app.getCheck();
+                        found = true;
+                    }
             } else {
+                selected = "1";
+            }
+
+            if (!found) {
                 selected = "1";
             }
 
@@ -138,6 +147,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             }
             mAll.add(new String[]{selected, pm.getApplicationLabel(appInfo).toString(), appInfo.packageName});
         }
+
+
+        Collections.sort(mDataset, new Comparator<String[]>() {
+            @Override
+            public int compare(String[] lhs, String[] rhs) {
+                return lhs[1].compareToIgnoreCase(rhs[1]);
+            }
+        });
+
+        Collections.sort(mAll, new Comparator<String[]>() {
+            @Override
+            public int compare(String[] lhs, String[] rhs) {
+                return lhs[1].compareToIgnoreCase(rhs[1]);
+            }
+        });
 
     }
 

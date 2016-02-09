@@ -47,5 +47,6 @@
     <string name="text_enable_app">Abilitare l\'applicazione per iniziare a usarla</string>
     <string name="text_make_preferences">Personalizzala come vuoi</string>
     <string name="subtitle_make_preferences">Cambia le preferenze e dacci qualche suggerimento</string>
-    <string name="name_shortcut" translatable="false">Wake Up On/Off</string>
+    <string name="name_shortcut">Wake Up On/Off</string>
+    <string name="subtitle_priority">Il miglior utilizzo è quello di utilizzare il livello alto, ma alcune applicazioni come Gmail usano il livello di priorità di default.</string>
 </resources>
