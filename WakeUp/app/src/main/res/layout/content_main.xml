@@ -224,6 +224,34 @@
                         android:padding="16dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
+                        android:id="@+id/action_timeout">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primary_text"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
+                            android:text="@string/title_timeout_preferences"
+                            android:id="@+id/timeout_title" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/secondary_text"
+                            android:id="@+id/subtitle_timeout"
+                            android:layout_below="@+id/timeout_title" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/back_select"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
                         android:id="@+id/action_silent">
 
                         <TextView
@@ -302,21 +330,32 @@
                         android:padding="16dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
-                        android:id="@+id/action_timeout">
+                        android:id="@+id/action_headset_plug">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/primary_text"
                             android:textAppearance="?android:attr/textAppearanceListItem"
-                            android:text="@string/title_timeout_preferences"
-                            android:id="@+id/timeout_title" />
+                            android:text="@string/title_headset_plug"
+                            android:id="@+id/headset_plug_title"
+                            android:layout_toStartOf="@+id/headset_plug_check" />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/secondary_text"
-                            android:id="@+id/subtitle_timeout"
-                            android:layout_below="@+id/timeout_title" />
+                            android:text="@string/headset_plug_proximity"
+                            android:layout_below="@+id/headset_plug_title"
+                            android:id="@+id/subtitle_headset_plug"
+                            android:layout_toStartOf="@+id/headset_plug_check" />
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/headset_plug_check"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="16dp"
+                            android:theme="@style/mDialog" />
                     </RelativeLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>

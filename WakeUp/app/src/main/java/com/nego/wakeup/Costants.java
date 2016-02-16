@@ -11,6 +11,7 @@ public class Costants {
     public static final String NOTIFICATION_PRIORITY = "NOTIFICATION_PRIORITY";
     public static final String PREFERENCE_PROXIMITY = "PREFERENCE_PROXIMITY";
     public static final String PREFERENCES_TIMEOUT = "PREFERENCES_TIMEOUT";
+    public static final String WAKEUP_HEADSET_PLUG = "WAKEUP_HEADSET_PLUG";
     public static final String ACTION_NOTIFICATION_LISTENER_SERVICE = "android.intent.action.NOTIFICATION_LISTENER_SERVICE";
 
     public static final String SEPARATOR_ITEM = "ITEM@@@";
