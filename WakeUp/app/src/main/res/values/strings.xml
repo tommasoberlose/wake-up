@@ -48,4 +48,6 @@
     <string name="subtitle_make_preferences">Change preferences and give us suggestions</string>
     <string name="name_shortcut">Toggle Wake Up</string>
     <string name="subtitle_priority">The best use is to use the highest level, but some applications like Gmail use the default priority level.</string>
+    <string name="title_headset_plug">Headset</string>
+    <string name="headset_plug_proximity">Turn on the screen when you insert a headset</string>
 </resources>

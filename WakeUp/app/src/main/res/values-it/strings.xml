@@ -49,4 +49,6 @@
     <string name="subtitle_make_preferences">Cambia le preferenze e dacci qualche suggerimento</string>
     <string name="name_shortcut">Wake Up On/Off</string>
     <string name="subtitle_priority">Il miglior utilizzo è quello di utilizzare il livello alto, ma alcune applicazioni come Gmail usano il livello di priorità di default.</string>
+    <string name="title_headset_plug">Auricolare</string>
+    <string name="headset_plug_proximity">Accendi lo schermo quando inserisci un auricolare</string>
 </resources>

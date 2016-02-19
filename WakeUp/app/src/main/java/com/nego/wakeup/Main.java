@@ -197,22 +197,6 @@ public class Main extends AppCompatActivity {
             }
         });
 
-        //HEADSET PLUG
-        final CheckBox hC = (CheckBox) findViewById(R.id.headset_plug_check);
-        hC.setChecked(SP.getBoolean(Costants.WAKEUP_HEADSET_PLUG, false));
-        hC.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SP.edit().putBoolean(Costants.WAKEUP_HEADSET_PLUG, isChecked).apply();
-            }
-        });
-        findViewById(R.id.action_headset_plug).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hC.setChecked(!hC.isChecked());
-            }
-        });
-
         // VERSIONE
         String version = getString(R.string.app_name);
         try {
