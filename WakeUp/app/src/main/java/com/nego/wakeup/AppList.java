@@ -152,6 +152,9 @@ public class AppList extends AppCompatActivity {
                 }
             }
         }
+
+
+
         return appList;
     }
 
