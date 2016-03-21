@@ -143,7 +143,7 @@ public class NLService extends NotificationListenerService implements SensorEven
     }
 
     public boolean checkPriority(Intent intent, SharedPreferences SP) {
-        return (intent.getIntExtra(Costants.NOTIFICATION_PRIORITY, -1) >= SP.getInt(Costants.NOTIFICATION_PRIORITY, 1));
+        return (intent.getIntExtra(Costants.NOTIFICATION_PRIORITY, -1) >= SP.getInt(Costants.NOTIFICATION_PRIORITY, 0));
     }
 
     public boolean checkSilent(SharedPreferences SP) {

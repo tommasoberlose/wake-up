@@ -52,11 +52,11 @@ public class Main extends AppCompatActivity {
         });
 
         // PRIORITY
-        updatePriority(SP.getInt(Costants.NOTIFICATION_PRIORITY, 1));
+        updatePriority(SP.getInt(Costants.NOTIFICATION_PRIORITY, 0));
         findViewById(R.id.action_priority).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selected = SP.getInt(Costants.NOTIFICATION_PRIORITY, 1) + 2;
+                selected = SP.getInt(Costants.NOTIFICATION_PRIORITY, 0) + 2;
                 String[] items = new String[]{
                         getString(R.string.text_priority_m2),
                         getString(R.string.text_priority_m1),
