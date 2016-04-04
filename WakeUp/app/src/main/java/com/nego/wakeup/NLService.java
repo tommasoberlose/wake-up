@@ -94,37 +94,42 @@ public class NLService extends NotificationListenerService implements SensorEven
     class NLServiceReceiver extends BroadcastReceiver{
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, Intent intent) {
             if (intent.getAction().equals(Costants.ACTION_NOTIFICATION_LISTENER_SERVICE)) {
                 SP = getSharedPreferences(Costants.PREFERENCES_COSTANT, Context.MODE_PRIVATE);
                 if (SP.getBoolean(Costants.WAKEUP_ACTIVE, false) && !isScreenOn() && checkSilent(SP) && checkListOk(intent, SP) && checkPriority(intent, SP)) {
-                    mSensorMgr = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-                    if (SP.getBoolean(Costants.PREFERENCE_PROXIMITY, true) && (mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null)) {
-                        Log.i("SENSOR", "START");
-                        try {
-                            mHandlerThread = new HandlerThread("sensorThread");
-                            mHandlerThread.start();
-                            final Handler handler = new Handler(mHandlerThread.getLooper());
+                    Handler delayH = new Handler();
+                    delayH.postDelayed(new Runnable() {
+                        public void run() {
+                            mSensorMgr = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+                            if (SP.getBoolean(Costants.PREFERENCE_PROXIMITY, true) && (mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY) != null)) {
+                                Log.i("SENSOR", "START");
+                                try {
+                                    mHandlerThread = new HandlerThread("sensorThread");
+                                    mHandlerThread.start();
+                                    final Handler handler = new Handler(mHandlerThread.getLooper());
 
-                            mSensorMgr.registerListener(NLService.this, mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY),
-                                    SensorManager.SENSOR_DELAY_FASTEST, handler);
+                                    mSensorMgr.registerListener(NLService.this, mSensorMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY),
+                                            SensorManager.SENSOR_DELAY_FASTEST, handler);
 
 
-                            mHandler = new Handler();
-                            mHandler.postDelayed(new Runnable() {
-                                public void run() {
-                                    mHandlerThread.quit();
-                                    mSensorMgr.unregisterListener(NLService.this);
-                                    Log.i("SENSOR", "END_TIME");
+                                    mHandler = new Handler();
+                                    mHandler.postDelayed(new Runnable() {
+                                        public void run() {
+                                            mHandlerThread.quit();
+                                            mSensorMgr.unregisterListener(NLService.this);
+                                            Log.i("SENSOR", "END_TIME");
+                                        }
+                                    }, 6000);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    wakeUp(SP);
                                 }
-                            }, 6000);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            wakeUp(SP);
+                            } else {
+                                wakeUp(SP);
+                            }
                         }
-                    } else {
-                        wakeUp(SP);
-                    }
+                    }, SP.getInt(Costants.PREFERENCES_DELAY, 1000));
 
                 }
             }

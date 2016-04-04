@@ -252,6 +252,33 @@
                         android:padding="16dp"
                         android:background="?attr/selectableItemBackground"
                         android:clickable="true"
+                        android:id="@+id/action_delay">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/primary_text"
+                            android:textAppearance="?android:attr/textAppearanceListItem"
+                            android:text="@string/title_delay_preferences"
+                            android:id="@+id/delay_title" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/secondary_text"
+                            android:id="@+id/subtitle_delay"
+                            android:layout_below="@+id/delay_title" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/back_select"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
                         android:id="@+id/action_silent">
 
                         <TextView

@@ -197,6 +197,78 @@ public class Main extends AppCompatActivity {
             }
         });
 
+        // DELAY
+        updateDelay(SP.getInt(Costants.PREFERENCES_DELAY, 1000));
+        findViewById(R.id.action_delay).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (SP.getInt(Costants.PREFERENCES_DELAY, 1000)) {
+                    case 0:
+                        selected = 0;
+                        break;
+                    case 500:
+                        selected = 1;
+                        break;
+                    case 1500:
+                        selected = 3;
+                        break;
+                    case 2000:
+                        selected = 4;
+                        break;
+                    default:
+                        selected = 2;
+                }
+                String[] items = new String[]{
+                        getString(R.string.text_delay_1),
+                        getString(R.string.text_delay_2),
+                        getString(R.string.text_delay_0),
+                        getString(R.string.text_delay_3),
+                        getString(R.string.text_delay_4)};
+                new AlertDialog.Builder(Main.this, R.style.mDialog)
+                        .setTitle(getString(R.string.title_delay_preferences))
+                        .setSingleChoiceItems(items, selected, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                selected = which;
+                            }
+                        })
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int delay;
+                                switch (selected) {
+                                    case 0:
+                                        delay = 0;
+                                        break;
+                                    case 1:
+                                        delay = 500;
+                                        break;
+                                    case 3:
+                                        delay = 1500;
+                                        break;
+                                    case 4:
+                                        delay = 2000;
+                                        break;
+                                    default:
+                                        delay = 1000;
+                                        break;
+                                }
+                                SP.edit().putInt(Costants.PREFERENCES_DELAY, delay).apply();
+                                updateDelay(delay);
+                                dialog.dismiss();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+
+
         // VERSIONE
         String version = getString(R.string.app_name);
         try {
@@ -297,6 +369,26 @@ public class Main extends AppCompatActivity {
                 break;
             case 120000:
                 ((TextView) findViewById(R.id.subtitle_timeout)).setText(R.string.text_timeout_4);
+                break;
+        }
+    }
+
+    public void updateDelay(int t) {
+        switch (t) {
+            case 0:
+                ((TextView) findViewById(R.id.subtitle_delay)).setText(R.string.text_delay_1);
+                break;
+            case 500:
+                ((TextView) findViewById(R.id.subtitle_delay)).setText(R.string.text_delay_2);
+                break;
+            case 1000:
+                ((TextView) findViewById(R.id.subtitle_delay)).setText(R.string.text_delay_0);
+                break;
+            case 1500:
+                ((TextView) findViewById(R.id.subtitle_delay)).setText(R.string.text_delay_3);
+                break;
+            case 2000:
+                ((TextView) findViewById(R.id.subtitle_delay)).setText(R.string.text_delay_4);
                 break;
         }
     }

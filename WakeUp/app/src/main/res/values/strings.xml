@@ -50,4 +50,10 @@
     <string name="subtitle_priority">The best use is to use the highest level, but some applications like Gmail use the default priority level.</string>
     <string name="title_headset_plug">Headset</string>
     <string name="headset_plug_proximity">Turn on the screen when you insert a headset</string>
+    <string name="title_delay_preferences">Wake Up Delay</string>
+    <string name="text_delay_0">Default (1 sec)</string>
+    <string name="text_delay_1">0 sec</string>
+    <string name="text_delay_2">0.5 sec</string>
+    <string name="text_delay_3">1.5 sec</string>
+    <string name="text_delay_4">2 sec</string>
 </resources>

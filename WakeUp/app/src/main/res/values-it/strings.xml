@@ -51,4 +51,10 @@
     <string name="subtitle_priority">Il miglior utilizzo è quello di utilizzare il livello alto, ma alcune applicazioni come Gmail usano il livello di priorità di default.</string>
     <string name="title_headset_plug">Auricolare</string>
     <string name="headset_plug_proximity">Accendi lo schermo quando inserisci un auricolare</string>
+    <string name="title_delay_preferences">Ritardo Accensione</string>
+    <string name="text_delay_0">Default (1 sec)</string>
+    <string name="text_delay_1">0 sec</string>
+    <string name="text_delay_2">0.5 sec</string>
+    <string name="text_delay_3">1.5 sec</string>
+    <string name="text_delay_4">2 sec</string>
 </resources>
