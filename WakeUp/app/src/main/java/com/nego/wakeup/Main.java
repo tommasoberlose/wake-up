@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
@@ -316,6 +317,9 @@ public class Main extends AppCompatActivity {
             });
             button.setText(on ? R.string.action_disable : R.string.action_enable);
             button.setBackgroundColor(on ? ContextCompat.getColor(this, R.color.primary) : ContextCompat.getColor(this, R.color.accent));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(on ? ContextCompat.getColor(this, R.color.primary_dark) : ContextCompat.getColor(this, R.color.accent_d));
+            }
             findViewById(R.id.nls_how_to).setVisibility(View.GONE);
         } else {
             button.setOnClickListener(new View.OnClickListener() {
@@ -327,6 +331,9 @@ public class Main extends AppCompatActivity {
             });
             button.setText(R.string.action_activate_nls);
             button.setBackgroundColor(ContextCompat.getColor(this, R.color.accent));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.accent_d));
+            }
             findViewById(R.id.nls_how_to).setVisibility(View.VISIBLE);
         }
         findViewById(R.id.card_settings).setVisibility(on ? View.VISIBLE : View.GONE);
