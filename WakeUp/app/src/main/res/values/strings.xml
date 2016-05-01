@@ -56,4 +56,5 @@
     <string name="text_delay_2">0.5 sec</string>
     <string name="text_delay_3">1.5 sec</string>
     <string name="text_delay_4">2 sec</string>
+    <string name="text_info_long_press">Long-press on an app to only change its priorities.</string>
 </resources>

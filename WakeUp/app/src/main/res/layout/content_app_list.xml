@@ -6,6 +6,51 @@
     tools:showIn="@layout/activity_app_list"
     android:paddingTop="?android:attr/actionBarSize"
     tools:context="com.nego.wakeup.AppList">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        app:cardBackgroundColor="@color/accent"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        android:background="@color/accent"
+        android:id="@+id/info_container">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/ic_action_info_outline"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:textColor="@android:color/white"
+                android:textAppearance="?android:textAppearanceListItem"
+                android:text="@string/text_info_long_press"/>
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="8dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:id="@+id/action_close"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_action_navigation_close"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,6 +60,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/info_container"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/app_list"/>
 </RelativeLayout>

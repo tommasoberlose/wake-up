@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
     android:id="@+id/container"
     android:background="@drawable/list_item_background_card">
@@ -20,36 +21,67 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_gravity="center_vertical"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/img_container"
         android:layout_toStartOf="@+id/checkbox">
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/primary_text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Title"
-            android:id="@+id/title" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/secondary_text"
-            android:text="Subtitle"
-            android:singleLine="true"
-            android:id="@+id/subtitle" />
-    </LinearLayout>
-
-        <CheckBox
+            android:layout_weight="0.8"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Title"
+                android:id="@+id/title" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondary_text"
+                android:text="Subtitle"
+                android:singleLine="true"
+                android:id="@+id/subtitle" />
+        </LinearLayout>
+        <android.support.v7.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:id="@+id/checkbox"
-            android:theme="@style/mDialog"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true" />
+            app:cardBackgroundColor="@color/back_selected_item"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true"
+            android:background="@color/back_selected_item"
+            android:layout_margin="8dp"
+            android:id="@+id/priority_container">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textSize="12sp"
+                android:textAppearance="?android:textAppearanceButton"
+                android:id="@+id/priority_text"
+                android:textColor="@color/all_text"
+                android:text="High"/>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/checkbox"
+        android:theme="@style/mDialog"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>

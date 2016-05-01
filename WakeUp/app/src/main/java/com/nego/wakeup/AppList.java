@@ -48,6 +48,19 @@ public class AppList extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         app_list.setLayoutManager(llm);
 
+        if (!SP.getBoolean(Costants.PREFERENCES_INFO_LONG_PRESS, false)) {
+            findViewById(R.id.action_close).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SP.edit().putBoolean(Costants.PREFERENCES_INFO_LONG_PRESS, true).apply();
+                    findViewById(R.id.info_container).setVisibility(View.GONE);
+                }
+            });
+            findViewById(R.id.info_container).setVisibility(View.VISIBLE);
+        } else {
+            findViewById(R.id.info_container).setVisibility(View.GONE);
+        }
+
         doList();
 
     }
@@ -114,7 +127,7 @@ public class AppList extends AppCompatActivity {
         if (mAdapter != null) {
             ArrayList<AppItemList> appItemLists = new ArrayList<>();
             for (String[] s : mAdapter.getData()) {
-                appItemLists.add(new AppItemList(s[2], s[0].equals("1")));
+                appItemLists.add(new AppItemList(s[2], s[0].equals("1"), Integer.parseInt(s[3])));
             }
             saveAll(appItemLists, SP);
         }
@@ -124,7 +137,7 @@ public class AppList extends AppCompatActivity {
         String toSave = "";
         String itemSeparator = "";
         for (AppItemList s : appList) {
-            toSave = toSave + itemSeparator + s.pack + Costants.SEPARATOR_CHECK + s.getCheck();
+            toSave = toSave + itemSeparator + s.pack + Costants.SEPARATOR_CHECK + s.getCheck() + Costants.SEPARATOR_CHECK + s.priority;
             itemSeparator = Costants.SEPARATOR_ITEM;
         }
         SP.edit().putString(Costants.NOTIFICATION_PACKAGE, toSave).apply();
@@ -136,19 +149,22 @@ public class AppList extends AppCompatActivity {
         if (app.equals("")) {
             List<ApplicationInfo> apps = context.getPackageManager().getInstalledApplications(0);
             for (ApplicationInfo appInfo : apps) {
-                   appList.add(new AppItemList(appInfo.packageName, true));
+                   appList.add(new AppItemList(appInfo.packageName, true, SP.getInt(Costants.NOTIFICATION_PRIORITY, 0)));
             }
         } else {
             String[] old_appList = app.split(";");
             if (old_appList.length > 1) {
                 for (String pack : old_appList) {
-                    appList.add(new AppItemList(pack, true));
+                    appList.add(new AppItemList(pack, true, SP.getInt(Costants.NOTIFICATION_PRIORITY, 0)));
                 }
             } else {
                 String[] items = app.split(Costants.SEPARATOR_ITEM);
                 for (String item : items) {
                     String[] item_divided = item.split(Costants.SEPARATOR_CHECK);
-                    appList.add(new AppItemList(item_divided[0], item_divided[1].equals("1")));
+                    if (item_divided.length == 2)
+                        appList.add(new AppItemList(item_divided[0], item_divided[1].equals("1"), SP.getInt(Costants.NOTIFICATION_PRIORITY, 0)));
+                    else
+                        appList.add(new AppItemList(item_divided[0], item_divided[1].equals("1"), Integer.parseInt(item_divided[2])));
                 }
             }
         }
@@ -161,10 +177,12 @@ public class AppList extends AppCompatActivity {
     public static class AppItemList {
         public String pack;
         public boolean check;
+        public int priority;
 
-        public AppItemList(String pack, boolean check) {
+        public AppItemList(String pack, boolean check, int priority) {
             this.pack = pack;
             this.check = check;
+            this.priority = priority;
         }
 
         public String getCheck() {
