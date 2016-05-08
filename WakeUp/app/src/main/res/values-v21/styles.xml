@@ -8,6 +8,13 @@
         <item name="android:statusBarColor">@color/primary_dark</item>
     </style>
 
+    <style name="AppTheme.Donation" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/blue_primary_dark</item>
+        <item name="android:homeAsUpIndicator">@drawable/ic_action_navigation_close</item>
+    </style>
 
     <style name="MyDialog_theme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowNoTitle">true</item>

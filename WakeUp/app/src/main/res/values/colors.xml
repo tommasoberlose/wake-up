@@ -46,4 +46,8 @@
     <color name="ripple_light">#1f000000</color>
     <color name="primary_applist">#346ac2</color>
     <color name="primary_applist_dark">#2a559b</color>
+
+
+    <color name="blue_primary">#2671eb</color>
+    <color name="blue_primary_dark">#1e5abc</color>
 </resources>

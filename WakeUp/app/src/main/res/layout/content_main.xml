@@ -6,7 +6,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?android:attr/actionBarSize" tools:context="com.wakeup.Main">
+    android:layout_marginTop="?android:attr/actionBarSize">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -401,6 +401,35 @@
                         android:id="@+id/subtitle_versione"
                         android:text="@string/subtitle_version"
                         android:layout_below="@+id/version_title" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/back_select"/>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:id="@+id/action_donation"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary_text"
+                        android:text="@string/title_activity_donation"
+                        android:id="@+id/title_dev"
+                        android:textAppearance="?android:attr/textAppearanceListItem" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/secondary_text"
+                        android:text="@string/susbtitle_dev"
+                        android:layout_below="@+id/title_dev" />
                 </RelativeLayout>
 
                 <LinearLayout

@@ -58,4 +58,17 @@
     <string name="text_delay_3">1.5 sec</string>
     <string name="text_delay_4">2 sec</string>
     <string name="text_info_long_press">Tieni premuto a lungo sulle app per modifarne la priorità.</string>
+    <string name="title_activity_donation">Aiuta lo Sviluppatore</string>
+    <string name="title_translate">Aiuta con le traduzioni</string>
+    <string name="subtitle_translate">Apri una richiesta di pull su GitHub</string>
+    <string name="donation_breakfast">Colazione</string>
+    <string name="donation_coffee">Caffè</string>
+    <string name="donation_icecream">Gelato</string>
+    <string name="donation_lunch">Pranzo</string>
+    <string name="text_donate">Fai una Donazione:</string>
+    <string name="error_billing">Errore Donazioni</string>
+    <string name="text_thanks">Grazie per il supporto!</string>
+    <string name="title_developer">Scopri i miei progetti</string>
+    <string name="subtitle_wake_up">Stesso Sviluppatore, stessa Semplicità</string>
+    <string name="susbtitle_dev">Fai una donazione</string>
 </resources>

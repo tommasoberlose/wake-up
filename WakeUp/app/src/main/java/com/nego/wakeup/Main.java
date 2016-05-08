@@ -297,6 +297,14 @@ public class Main extends AppCompatActivity {
             }
         });
 
+        // DONATION
+        findViewById(R.id.action_donation).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Main.this, Donation.class));
+            }
+        });
+
     }
 
     @Override
