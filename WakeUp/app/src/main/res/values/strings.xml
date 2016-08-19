@@ -14,7 +14,7 @@
     <string name="subtitle_settings">Manage preferences and app settings</string>
     <string name="text_version">v.</string>
     <string name="title_community">Wake Up Community</string>
-    <string name="subtitle_community">Help, feedback and suggestions</string>
+    <string name="subtitle_community">Feedback</string>
     <string name="text_great">Great</string>
     <string name="text_attention">Attention</string>
     <string name="title_list_app">Applications List</string>
@@ -28,7 +28,7 @@
     <string name="text_priority_m1">Low</string>
     <string name="text_priority_m2">Min</string>
     <string name="action_activate_nls">Give Notification Access</string>
-    <string name="subtitle_version">Rate Wake Up on Google Play Store</string>
+    <string name="subtitle_version">Rate Wake Up</string>
     <string name="title_activity_app_list">Application List</string>
     <string name="action_select_all">Select All</string>
     <string name="title_proximity">Proximity Sensor</string>
@@ -70,4 +70,6 @@
     <string name="title_developer">Find out my projects</string>
     <string name="subtitle_wake_up">Same developer, Same Simplicity</string>
     <string name="susbtitle_dev">Make a donation</string>
+    <string name="action_disable_nls">Remove Notification Access</string>
+    <string name="action_add_shortcut">Add On/Off Shortcut</string>
 </resources>

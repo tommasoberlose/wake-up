@@ -9,39 +9,58 @@
     android:layout_marginTop="?android:attr/actionBarSize">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="16dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="@color/secondary_text"
+                android:gravity="center_horizontal"
+                android:fontFamily="sans-serif-light"
+                android:textAllCaps="true"
+                android:id="@+id/activity_title"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="@string/app_name"/>
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="32dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:alpha="0.54"
+                android:layout_alignParentEnd="true"
+                android:layout_centerInParent="true"
+                android:tint="@color/secondary_text"
+                android:src="@drawable/ic_action_navigation_more_horiz"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:id="@+id/action_menu"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:id="@+id/card_how_to">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/secondary_text"
-                    android:text="@string/title_how_to"
-                    android:fontFamily="sans-serif-medium"
-                    android:textAllCaps="true"
-                    android:gravity="center_horizontal"/>
-            </RelativeLayout>
-
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/background_m_light"
+                app:cardBackgroundColor="@color/primary"
                 app:cardCornerRadius="3dp"
-                app:cardElevation="0dp"
+                app:cardElevation="1dp"
                 app:cardPreventCornerOverlap="true"
-                android:animateLayoutChanges="true"
-                android:background="@color/background_m_light"
+                android:background="@color/primary"
+                android:id="@+id/card_suggestions"
                 android:layout_margin="16dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,20 +80,24 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/primary_text"
+                                android:textColor="@android:color/white"
                                 android:text="@string/action_activate_nls"
                                 android:textAppearance="?android:attr/textAppearanceListItem" />
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/secondary_text"
+                                android:textColor="@android:color/white"
+                                android:alpha="0.54"
                                 android:text="@string/text_welcome_msg"/>
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:background="@color/back_select"/>
+                            android:background="@color/primary_dark"
+                            android:alpha="0.5"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginLeft="8dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -86,20 +109,24 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/primary_text"
+                            android:textColor="@android:color/white"
                             android:textAppearance="?android:attr/textAppearanceListItem"
                             android:text="@string/action_enable" />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/secondary_text"
+                            android:textColor="@android:color/white"
+                            android:alpha="0.54"
                             android:text="@string/text_enable_app"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/back_select"/>
+                        android:background="@color/primary_dark"
+                        android:alpha="0.5"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginLeft="16dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -110,13 +137,14 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/primary_text"
+                            android:textColor="@android:color/white"
                             android:textAppearance="?android:attr/textAppearanceListItem"
                             android:text="@string/text_make_preferences" />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/secondary_text"
+                            android:textColor="@android:color/white"
+                            android:alpha="0.54"
                             android:text="@string/subtitle_make_preferences"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -128,39 +156,20 @@
             android:layout_height="wrap_content"
             android:id="@+id/card_settings"
             android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/secondary_text"
-                    android:gravity="center_horizontal"
-                    android:fontFamily="sans-serif-medium"
-                    android:textAllCaps="true"
-                    android:text="@string/title_activity_settings"/>
-            </RelativeLayout>
-
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/background_m_light"
+                app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="3dp"
-                app:cardElevation="0dp"
+                app:cardElevation="1dp"
                 app:cardPreventCornerOverlap="true"
                 android:animateLayoutChanges="true"
-                android:background="@color/background_m_light"
+                android:background="@android:color/white"
                 android:layout_margin="16dp">
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -348,118 +357,5 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/secondary_text"
-                android:text="@string/title_activity_about"
-                android:fontFamily="sans-serif-medium"
-                android:textAllCaps="true"
-                android:gravity="center_horizontal"/>
-        </RelativeLayout>
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/background_m_light"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="0dp"
-            app:cardPreventCornerOverlap="true"
-            android:animateLayoutChanges="true"
-            android:background="@color/background_m_light"
-            android:layout_margin="16dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:id="@+id/action_rate"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/primary_text"
-                        android:textAppearance="?android:attr/textAppearanceListItem"
-                        android:id="@+id/version_title" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/secondary_text"
-                        android:id="@+id/subtitle_versione"
-                        android:text="@string/subtitle_version"
-                        android:layout_below="@+id/version_title" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/back_select"/>
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:id="@+id/action_donation"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/primary_text"
-                        android:text="@string/title_activity_donation"
-                        android:id="@+id/title_dev"
-                        android:textAppearance="?android:attr/textAppearanceListItem" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/secondary_text"
-                        android:text="@string/susbtitle_dev"
-                        android:layout_below="@+id/title_dev" />
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/back_select"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:id="@+id/action_community">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/primary_text"
-                        android:textAppearance="?android:attr/textAppearanceListItem"
-                        android:text="@string/title_community"
-                        android:id="@+id/community_title" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/secondary_text"
-                        android:text="@string/subtitle_community"
-                        android:layout_below="@+id/community_title" />
-                </RelativeLayout>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -2,8 +2,10 @@ package com.nego.wakeup;
 
 import android.animation.Animator;
 import android.app.Activity;
+import android.app.admin.DevicePolicyManager;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +46,9 @@ public class Main extends AppCompatActivity {
 
         button = (TextView) findViewById(R.id.button_title);
         updateUI(SP.getBoolean(Costants.WAKEUP_ACTIVE, false));
+
+        // VERSION
+        ((TextView) findViewById(R.id.activity_title)).setText(String.format("%s %s", getString(R.string.app_name), BuildConfig.VERSION_NAME));
 
         // PACKAGE
         findViewById(R.id.action_list_app).setOnClickListener(new View.OnClickListener() {
@@ -269,41 +275,68 @@ public class Main extends AppCompatActivity {
             }
         });
 
-
-        // VERSIONE
-        String version = getString(R.string.app_name);
-        try {
-            version += " " + getString(R.string.text_version) + getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        ((TextView) findViewById(R.id.version_title)).setText(version);
-        findViewById(R.id.action_rate).setOnClickListener(new View.OnClickListener() {
+        // MENU
+        findViewById(R.id.action_menu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nego.wakeup")));
-                } catch (ActivityNotFoundException e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.nego.wakeup")));
-                }
+                final BottomSheetDialog bDialog = new BottomSheetDialog(Main.this);
+                View bView = LayoutInflater.from(Main.this).inflate(R.layout.bottom_sheet_menu, null);
+
+                // VERSION
+                bView.findViewById(R.id.action_rate).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.nego.wakeup")));
+                        } catch (ActivityNotFoundException e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.nego.wakeup")));
+                        }
+                        bDialog.dismiss();
+                    }
+                });
+
+                // SHORTCUT
+                bView.findViewById(R.id.action_add_shortcut).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ShortcutReceiver.addShortcutToHome(Main.this);
+                        bDialog.dismiss();
+                    }
+                });
+
+                // COMMUNITY
+                bView.findViewById(R.id.action_feedback).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/communities/100614116200820350356/stream/edf4f722-4c14-4b29-98dc-58a5721dd3a5")));
+                        bDialog.dismiss();
+                    }
+                });
+
+                // DONATION
+                bView.findViewById(R.id.action_donation).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(Main.this, Donation.class));
+                        bDialog.dismiss();
+                    }
+                });
+
+                // REMOVE NOTIFICATION ACCESS
+                bView.findViewById(R.id.action_remove_p).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                        startActivityForResult(intent, 1);
+                        bDialog.dismiss();
+                    }
+                });
+
+                bDialog.setContentView(bView);
+                bDialog.show();
             }
         });
 
-        // COMMUNITY
-        findViewById(R.id.action_community).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/communities/100614116200820350356/stream/edf4f722-4c14-4b29-98dc-58a5721dd3a5")));
-            }
-        });
-
-        // DONATION
-        findViewById(R.id.action_donation).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Main.this, Donation.class));
-            }
-        });
 
     }
 
@@ -329,6 +362,8 @@ public class Main extends AppCompatActivity {
                 getWindow().setStatusBarColor(on ? ContextCompat.getColor(this, R.color.primary_dark) : ContextCompat.getColor(this, R.color.accent_d));
             }
             findViewById(R.id.nls_how_to).setVisibility(View.GONE);
+            findViewById(R.id.card_settings).setVisibility(on ? View.VISIBLE : View.GONE);
+            findViewById(R.id.card_how_to).setVisibility(!on ? View.VISIBLE : View.GONE);
         } else {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -343,9 +378,9 @@ public class Main extends AppCompatActivity {
                 getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.accent_d));
             }
             findViewById(R.id.nls_how_to).setVisibility(View.VISIBLE);
+            findViewById(R.id.card_settings).setVisibility(View.GONE);
+            findViewById(R.id.card_how_to).setVisibility(View.VISIBLE);
         }
-        findViewById(R.id.card_settings).setVisibility(on ? View.VISIBLE : View.GONE);
-        findViewById(R.id.card_how_to).setVisibility(!on ? View.VISIBLE : View.GONE);
     }
 
     public void updatePriority(int p) {

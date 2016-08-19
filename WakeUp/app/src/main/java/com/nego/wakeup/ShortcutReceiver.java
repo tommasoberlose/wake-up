@@ -37,4 +37,19 @@ public class ShortcutReceiver extends Activity {
 
         super.onCreate(savedInstanceState);
     }
+
+    public static void addShortcutToHome(Context context) {
+        Intent shortcutIntent = new Intent(context, ShortcutReceiver.class);
+        shortcutIntent.setAction(Costants.ACTION_TOGGLE_APP);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        Intent addIntent = new Intent();
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, context.getResources().getString(R.string.name_shortcut));
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(context, R.mipmap.ic_shortcut));
+        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+
+        context.sendBroadcast(addIntent);
+    }
 }

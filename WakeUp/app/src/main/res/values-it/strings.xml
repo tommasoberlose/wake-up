@@ -11,12 +11,12 @@
     <string name="app_name_disabled">Wake Up disabilitata</string>
     <string name="app_name_enabled">Wake Up abilitata</string>
     <string name="subtitle_about">Informazioni, aiuto e feedback</string>
-    <string name="subtitle_community">Aiuto, feedback e suggerimenti</string>
+    <string name="subtitle_community">Suggerimenti</string>
     <string name="subtitle_list_app">Scegli quali applicazioni attivano lo schermo</string>
     <string name="subtitle_proximity">Utilizza il sensore di prossimità per verificare se il device è in tasca</string>
     <string name="subtitle_settings">Modifica preferenze e impostazioni</string>
     <string name="subtitle_silent">Non accendere lo schermo quando la modalità silenziosa è attiva</string>
-    <string name="subtitle_version">Vota Wake Up sul Google Play Store</string>
+    <string name="subtitle_version">Vota Wake Up</string>
     <string name="text_attention">Attenzione</string>
     <string name="text_great">Molto Bene</string>
     <string name="text_never">mai</string>
@@ -71,4 +71,6 @@
     <string name="title_developer">Scopri i miei progetti</string>
     <string name="subtitle_wake_up">Stesso Sviluppatore, stessa Semplicità</string>
     <string name="susbtitle_dev">Fai una donazione</string>
+    <string name="action_disable_nls">Rimuovi accesso alle Notifiche</string>
+    <string name="action_add_shortcut">Aggiungi Scorciatoia On/Off</string>
 </resources>
